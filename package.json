@@ -1,0 +1,93 @@
+{
+  "name": "galata",
+  "description": "Galata Web Components are a set of reusable, accessible, and customizable web components following the design language of Galata.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "private": "true",
+  "author": "Onur Pamuk",
+  "license": "Apache-2.0",
+  "keywords": [
+    "design-system",
+    "galata",
+    "web-components",
+    "lit"
+  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "packageManager": "pnpm@10.18.2",
+  "engines": {
+    "node": ">=20.0.0 <=25"
+  },
+  "scripts": {
+    "l:build": "turbo run build --filter='./packages/**'",
+    "bump:stable": "changeset version",
+    "bump:next": "changeset version --snapshot",
+    "bump:check": "changeset status --since=main",
+    "bump:canary": "changeset version --snapshot canary",
+    "bump:alpha": "changeset version --prerelease alpha",
+    "bump:beta": "changeset version --prerelease beta",
+    "clean": "bash ./scripts/clean.sh",
+    "commit": "git-cz",
+    "l:setup": "bash ./scripts/setup.sh",
+    "prepare": "husky install",
+    "publish:all": "pnpm clean && pnpm build && turbo run publish --filter='./packages/**'",
+    "publish:changed": "pnpm build && changeset publish",
+    "registry:local": "bash ./scripts/registry/set-local.sh",
+    "registry:nexus": "bash ./scripts/registry/set-nexus.sh",
+    "registry:npm": "bash ./scripts/registry/set-npm.sh",
+    "test": "web-test-runner --config ./test/config/test-runner.config.mjs",
+    "test:coverage": "web-test-runner --config ./test/config/test-runner.config.mjs --coverage",
+    "test:debug": "web-test-runner --config ./test/config/test-runner.config.mjs --coverage --watch --debug",
+    "test:watch": "web-test-runner --config ./test/config/test-runner.config.mjs --watch",
+    "typecheck": "turbo run typecheck --filter=./packages/**",
+    "v:release": "pnpm bump:stable && pnpm registry:local && pnpm publish:changed",
+    "v:reset": "rimraf ~/.config/verdaccio/storage && npx verdaccio --listen 4873 --config ./.verdaccio/config.yaml",
+    "v:start": "npx verdaccio --listen 4873 --config ./.verdaccio/config.yaml",
+    "v:stop": "lsof -ti :4873 | xargs kill -9 || echo '🟢 No Verdaccio process found'",
+    "v:version:sync": "pnpm registry:local && pnpm bump:stable && pnpm publish:changed"
+  },
+  "dependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.7",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@open-wc/testing": "3.0.0-next.5",
+    "@playwright/test": "^1.56.0",
+    "@rollup/plugin-alias": "^6.0.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-replace": "^6.0.3",
+    "@types/chai": "^5.2.3",
+    "@types/minimist": "^1.2.5",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.7.2",
+    "@web/dev-server-esbuild": "^1.0.4",
+    "@web/dev-server-import-maps": "^0.2.1",
+    "@web/dev-server-rollup": "^0.6.4",
+    "@web/test-runner": "^0.20.2",
+    "@web/test-runner-coverage-v8": "^0.8.0",
+    "@web/test-runner-playwright": "^0.11.1",
+    "@web/test-runner-puppeteer": "^0.18.0",
+    "editorconfig": "^3.0.1",
+    "globals": "^16.5.0",
+    "husky": "^8.0.0",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.2.4",
+    "live-server": "^1.2.2",
+    "minimist": "^1.2.8",
+    "playwright": "^1.56.1",
+    "puppeteer": "^24.29.1",
+    "rimraf": "^6.0.1",
+    "rollup-plugin-lit-css": "^6.0.0",
+    "turbo": "^2.5.8",
+    "verdaccio": "6"
+  }
+}
