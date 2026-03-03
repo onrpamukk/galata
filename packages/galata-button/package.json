@@ -1,0 +1,50 @@
+{
+  "name": "@galata/button",
+  "version": "1.0.0",
+  "description": "A customizable and accessible button component for the Galata Design System.",
+  "author": {
+    "name": "Onur Pamuk",
+    "email": "onrpamukk@outlook.com"
+  },
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./g-*.js",
+    "dist/index.js"
+  ],
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json",
+    "!__tests__/"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "pnpm cem && pnpm clean && tsup",
+    "cem": "cem analyze --config custom-elements-manifest.config.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "lit": "^3.3.0"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "lit": "^3.3.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.0.0 <=25"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@open-wc/form-helpers": "^1.0.0"
+  }
+}

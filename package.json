@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "private": "true",
-  "author": "Onur Pamuk",
+  "author": {
+    "name": "Onur Pamuk",
+    "email": "onrpamukk@outlook.com"
+  },
   "license": "Apache-2.0",
   "keywords": [
     "design-system",
